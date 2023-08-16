@@ -1,6 +1,9 @@
 #include "config.h"
 
 int main() {
+
+    // Initialize GLFW + window
+
     if (!glfwInit()) {
         std::cout << "Failed to initialize GLFW" << std::endl;
         return -1;
@@ -19,6 +22,8 @@ int main() {
         }
 
     glfwMakeContextCurrent(window);
+
+    // Initialize GLAD + OpenGL
 
     gladLoadGL();
 
