@@ -1,9 +1,10 @@
 #include "config.h"
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void processInput(GLFWwindow* window);
+
 int main() {
-
     // Initialize GLFW + window
-
     if (!glfwInit()) {
         std::cout << "Failed to initialize GLFW" << std::endl;
         return -1;
@@ -21,27 +22,40 @@ int main() {
         return -1;
         }
 
+    // Initialize context GLAD + OpenGL
     glfwMakeContextCurrent(window);
-
-    // Initialize GLAD + OpenGL
 
     gladLoadGL();
 
     glViewport(0, 0, 1920, 1080);
 
-    glClearColor(0.25f, 0.5f, 0.75f, 1.0f);
-
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    glfwSwapBuffers(window);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     while (!glfwWindowShouldClose(window)) {
+        // logic
+        processInput(window);
 
+        // rendering
+
+        glClearColor(0.25f, 0.5f, 0.75f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        // submit
+        glfwSwapBuffers(window);
         glfwPollEvents();
-
         }
 
     glfwDestroyWindow(window);
     glfwTerminate();
     return 0;
     };
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+    glViewport(0, 0, width, height);
+    }
+
+void processInput(GLFWwindow* window) {
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        glfwSetWindowShouldClose(window, true);
+        }
+    }
