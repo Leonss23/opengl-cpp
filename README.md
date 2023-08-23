@@ -1,0 +1,63 @@
+# Learning OpenGL
+
+Felt like learning some graphics programming :)
+
+## [LearnOpenGL](https://learnopengl.com/)
+
+- [x] Introduction
+- [ ] Getting Started
+  - [x] OpenGL
+  - [x] Creating a window (dependency setup)
+  - [x] Hello Window
+  - [ ] Hello Triangle
+  - [ ] Shaders
+  - [ ] Textures
+  - [ ] Transformations
+  - [ ] Coordinate Systems
+  - [ ] Camera
+  - [ ] Review
+- [ ] Lighting
+  - [ ] Colors
+  - [ ] Basic Lighting
+  - [ ] Materials
+  - [ ] Lighting Maps
+  - [ ] Light Casters
+  - [ ] Multiple Lights
+  - [ ] Review
+- [ ] Model Loading
+  - [ ] Assimp
+  - [ ] Mesh
+  - [ ] Model
+- [ ] Advanced OpenGL
+  - [ ] Depth Testing
+  - [ ] Stencil Testing
+  - [ ] Blending
+  - [ ] Face Culling
+  - [ ] Framebuffers
+  - [ ] Cubemaps
+  - [ ] Advanced Data
+  - [ ] Advanced GLSL
+  - [ ] Geometry Shader
+  - [ ] Instancing
+  - [ ] Anti Aliasing
+- [ ] Advanced Lighting
+  - [ ] Advanced Lighting
+  - [ ] Gamma Correction
+  - [ ] Shadows
+    - [ ] Shadow Mapping
+    - [ ] Point Shadows
+  - [ ] Normal Mapping
+  - [ ] Parallax Mapping
+  - [ ] HDR
+  - [ ] Bloom
+  - [ ] Deferred Shading
+  - [ ] SSAO
+- [ ] PBR
+  - [ ] Theory
+  - [ ] Lighting
+  - [ ] IBL
+    - [ ] Diffuse Irradiance
+    - [ ] Specular IBL
+- [ ] In Practice
+  - [ ] Debugging
+  - [ ] Text Rendering
