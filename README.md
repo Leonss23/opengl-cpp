@@ -9,7 +9,7 @@ Felt like learning some graphics programming :)
   - [x] OpenGL
   - [x] Creating a window (dependency setup)
   - [x] Hello Window
-  - [ ] Hello Triangle
+  - [x] Hello Triangle
   - [ ] Shaders
   - [ ] Textures
   - [ ] Transformations
