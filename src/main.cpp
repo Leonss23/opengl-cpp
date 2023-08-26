@@ -77,6 +77,9 @@ int main() {
     EBO1.Unbind();
 
 
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+
     while (!glfwWindowShouldClose(window)) {
         // logic
         processInput(window);
