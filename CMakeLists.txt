@@ -7,11 +7,12 @@ add_subdirectory(lib/glfw EXCLUDE_FROM_ALL)
 
 add_executable(${PROJECT_NAME}
     src/main.cpp
-    src/glad.c
+    lib/glad/glad.c
 )
 
-target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_include_directories(${PROJECT_NAME} PRIVATE src/include)
+target_include_directories(${PROJECT_NAME} PRIVATE lib)
+target_include_directories(${PROJECT_NAME} PRIVATE lib/glfw/include)
 target_link_directories(${PROJECT_NAME} PRIVATE lib)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
