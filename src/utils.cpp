@@ -1,7 +1,7 @@
 #include "utils.h"
 
-std::string get_file_contents(const char* filename) {
-    std::string filepath = "res/shaders/" + std::string(filename);
+std::string get_file_contents(const char* prefix, const char* filename) {
+    std::string filepath = std::string(prefix) + std::string(filename);
     std::ifstream in(filepath, std::ios::binary);
     if (in) {
         std::string contents;

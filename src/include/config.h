@@ -6,3 +6,8 @@
 
 #include "window.h"
 #include "utils.h"
+
+#include "Shader.h"
+#include "ShaderProgram.h"
+#include "VAO.h"
+#include "BufferObject.h"

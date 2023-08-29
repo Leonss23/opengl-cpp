@@ -4,4 +4,4 @@
 #include <fstream>
 #include <iostream>
 
-std::string get_file_contents(const char* filename);
+std::string get_file_contents(const char* prefix, const char* filename);

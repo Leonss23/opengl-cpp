@@ -10,11 +10,16 @@ add_executable(${PROJECT_NAME}
     src/main.cpp
     src/window.cpp
     src/utils.cpp
+    src/opengl_classes/ShaderProgram.cpp
+    src/opengl_classes/Shader.cpp
+    src/opengl_classes/VAO.cpp
+    src/opengl_classes/BufferObject.cpp
 )
 
 file(COPY res DESTINATION .)
 
 target_include_directories(${PROJECT_NAME} PRIVATE src/include)
+target_include_directories(${PROJECT_NAME} PRIVATE src/include/opengl_classes)
 target_include_directories(${PROJECT_NAME} PRIVATE lib)
 target_include_directories(${PROJECT_NAME} PRIVATE lib/glfw/include)
 target_link_directories(${PROJECT_NAME} PRIVATE lib)
