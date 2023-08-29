@@ -10,7 +10,7 @@ Felt like learning some graphics programming :)
   - [x] Creating a window (dependency setup)
   - [x] Hello Window
   - [x] Hello Triangle
-  - [ ] Shaders
+  - [x] Shaders
   - [ ] Textures
   - [ ] Transformations
   - [ ] Coordinate Systems
