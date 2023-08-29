@@ -3,7 +3,7 @@ project(opengl_learning)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_subdirectory(lib/glfw)
+add_subdirectory(lib/glfw EXCLUDE_FROM_ALL)
 
 add_executable(${PROJECT_NAME}
     src/main.cpp
