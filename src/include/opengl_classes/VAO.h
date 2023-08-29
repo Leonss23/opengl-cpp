@@ -7,7 +7,7 @@ class VAO {
 public:
     GLuint ID;
     VAO();
-    void LinkVBO(BufferObject VBO, GLuint layout, GLuint indicesCount, GLsizei strideSize);
+    void LinkAttrib(BufferObject VBO, GLuint layout, GLuint stride, GLenum type, GLsizeiptr strideSize, void* offset);
     void Bind();
     void Unbind();
     void Delete();
