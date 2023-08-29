@@ -3,8 +3,6 @@ project(opengl_learning)
 
 set(CMAKE_CXX_STANDARD 14)
 
-find_package(OpenGL REQUIRED)
-
 add_executable(${PROJECT_NAME}
     src/main.cpp
     src/glad.c
@@ -14,4 +12,4 @@ target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_include_directories(${PROJECT_NAME} PRIVATE src/include)
 target_link_directories(${PROJECT_NAME} PRIVATE lib)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE glfw3 OpenGL::GL)
+target_link_libraries(${PROJECT_NAME} PRIVATE glfw3)
