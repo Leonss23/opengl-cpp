@@ -9,7 +9,10 @@ add_executable(${PROJECT_NAME}
     lib/glad/glad.c
     src/main.cpp
     src/window.cpp
+    src/utils.cpp
 )
+
+file(COPY res DESTINATION .)
 
 target_include_directories(${PROJECT_NAME} PRIVATE src/include)
 target_include_directories(${PROJECT_NAME} PRIVATE lib)
