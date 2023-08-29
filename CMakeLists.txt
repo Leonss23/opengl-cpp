@@ -3,6 +3,8 @@ project(opengl_learning)
 
 set(CMAKE_CXX_STANDARD 14)
 
+add_subdirectory(lib/glfw)
+
 add_executable(${PROJECT_NAME}
     src/main.cpp
     src/glad.c
@@ -12,4 +14,4 @@ target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_include_directories(${PROJECT_NAME} PRIVATE src/include)
 target_link_directories(${PROJECT_NAME} PRIVATE lib)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE glfw3)
+target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
