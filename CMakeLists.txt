@@ -16,7 +16,11 @@ add_executable(${PROJECT_NAME}
     src/opengl_classes/BufferObject.cpp
 )
 
-file(COPY res DESTINATION .)
+add_custom_target(copy_resources ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_CURRENT_SOURCE_DIR}/res
+    ${CMAKE_CURRENT_BINARY_DIR}/res
+    )
 
 target_include_directories(${PROJECT_NAME} PRIVATE src/include)
 target_include_directories(${PROJECT_NAME} PRIVATE src/include/opengl_classes)
