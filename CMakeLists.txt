@@ -28,6 +28,7 @@ ${CMAKE_CURRENT_BINARY_DIR}/res
 
 # LIBRARIES
 add_subdirectory(lib/glfw EXCLUDE_FROM_ALL)
+add_subdirectory(lib/glm EXCLUDE_FROM_ALL)
 
 add_library(glad
 lib/glad/glad.h
@@ -43,4 +44,4 @@ add_library(
 )
 
 target_link_directories(${PROJECT_NAME} PRIVATE lib)
-target_link_libraries(${PROJECT_NAME} PRIVATE glfw glad stb)
+target_link_libraries(${PROJECT_NAME} PRIVATE glfw glad stb glm)
