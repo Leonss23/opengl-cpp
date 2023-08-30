@@ -36,10 +36,10 @@ lib/glad/glad.c
 target_include_directories(glad PUBLIC lib)
 
 add_library(
-    stb_image
+    stb
     lib/stb/stb_image.h
     lib/stb/stb_image.cpp
 )
 
 target_link_directories(${PROJECT_NAME} PRIVATE lib)
-target_link_libraries(${PROJECT_NAME} PRIVATE glfw glad)
+target_link_libraries(${PROJECT_NAME} PRIVATE glfw glad stb)
