@@ -12,3 +12,4 @@
 #include "ShaderProgram.h"
 #include "VAO.h"
 #include "BufferObject.h"
+#include "Texture.h"

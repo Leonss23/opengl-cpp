@@ -21,7 +21,7 @@ int main() {
     GLuint vertStride = 8;
     GLsizeiptr vertSize = vertStride * sizeof(vertices[0]);
 
-    ShaderProgram ShaderProgram("default.vert", "default.frag");
+    ShaderProgram shaderProgram("default.vert", "default.frag");
 
     VAO VAO1;
     VAO1.Bind();
@@ -38,36 +38,14 @@ int main() {
     EBO1.Unbind();
 
     // Uniforms
-    GLuint scaleUniform = glGetUniformLocation(ShaderProgram.ID, "scale");
+    GLuint scaleUniform = glGetUniformLocation(shaderProgram.ID, "scale");
 
     // Drawing settings
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     // Texture
-    int texWidth, texHeight, texColorChannelCount;
-    stbi_set_flip_vertically_on_load(true);
-    unsigned char* texData = stbi_load("res/textures/don_trolleone.png", &texWidth, &texHeight, &texColorChannelCount, 0);
-
-    GLuint texture;
-    glGenTextures(1, &texture);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texWidth, texHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData);
-    glGenerateMipmap(GL_TEXTURE_2D);
-
-    stbi_image_free(texData);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    GLuint tex0Uni = glGetUniformLocation(ShaderProgram.ID, "tex0");
-    ShaderProgram.Use();
-    glUniform1i(tex0Uni, 0);
+    Texture texDonTrolleone("don_trolleone.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+    texDonTrolleone.texUnit(shaderProgram, "tex0", 0);
 
     while (!glfwWindowShouldClose(window)) {
         // logic
@@ -77,10 +55,10 @@ int main() {
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        ShaderProgram.Use();
+        shaderProgram.Use();
         glUniform1f(scaleUniform, 1.0f);
         VAO1.Bind();
-        glBindTexture(GL_TEXTURE_2D, texture);
+        texDonTrolleone.Bind();
         glDrawElements(GL_TRIANGLES, indicesCount, GL_UNSIGNED_INT, 0);
 
         // submit
@@ -91,8 +69,8 @@ int main() {
     VAO1.Delete();
     VBO1.Delete();
     EBO1.Delete();
-    glDeleteTextures(1, &texture);
-    ShaderProgram.Delete();
+    texDonTrolleone.Delete();
+    shaderProgram.Delete();
 
     cleanupGlfw(window);
     return 0;
