@@ -1,7 +1,7 @@
 #include "config.h"
 
 int main() {
-    GLFWwindow* window = windowInit();
+    Window window(1280, 720, "Learning OpenGL");
 
     // Vertex Data
     GLfloat vertices[] = {
@@ -47,23 +47,29 @@ int main() {
     Texture texDonTrolleone("don_trolleone.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
     texDonTrolleone.texUnit(shaderProgram, "tex0", 0);
 
-    while (!glfwWindowShouldClose(window)) {
+    while (!window.ShouldClose()) {
         // logic
-        processInput(window);
+        window.Update();
 
         // rendering
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         shaderProgram.Use();
+
+        glm::mat4 model(1.0f);
+        glm::mat4 view(1.0f);
+        glm::mat4 proj(1.0f);
+        view = glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
+        proj = glm::perspective(glm::radians(45.0f), (float)(window.width / window.height), 0.1f, 100.0f);
+
         glUniform1f(scaleUniform, 1.0f);
         VAO1.Bind();
         texDonTrolleone.Bind();
         glDrawElements(GL_TRIANGLES, indicesCount, GL_UNSIGNED_INT, 0);
 
         // submit
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+        window.Submit();
         }
 
     VAO1.Delete();
@@ -72,6 +78,6 @@ int main() {
     texDonTrolleone.Delete();
     shaderProgram.Delete();
 
-    cleanupGlfw(window);
+    window.Delete();
     return 0;
     };
