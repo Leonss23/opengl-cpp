@@ -12,8 +12,8 @@ Felt like learning some graphics programming :)
   - [x] Hello Triangle
   - [x] Shaders
   - [x] Textures
-  - [ ] Transformations
-  - [ ] Coordinate Systems
+  - [x] Transformations
+  - [x] Coordinate Systems
   - [ ] Camera
   - [ ] Review
 - [ ] Lighting
