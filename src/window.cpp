@@ -3,6 +3,8 @@
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 Window::Window(int init_width, int init_height, const char* title) {
+    width = init_width;
+    height = init_height;
     // GLFW Init
     if (!glfwInit()) {
         std::cout << "Failed to initialize GLFW" << std::endl;
@@ -19,13 +21,14 @@ Window::Window(int init_width, int init_height, const char* title) {
 #endif
 
     // GLFW Window Init
-    handle = glfwCreateWindow(init_width, init_height, title, NULL, NULL);
+    handle = glfwCreateWindow(width, height, title, NULL, NULL);
 
     if (handle == NULL) {
         std::cout << "GLFW failed to create window" << std::endl;
         glfwTerminate();
         exit(-1);
         }
+
 
     // Proper window resizing
     glfwSetFramebufferSizeCallback(handle, framebuffer_size_callback);
