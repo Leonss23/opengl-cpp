@@ -7,14 +7,19 @@ int main() {
     GLfloat vertices[] = {
         //  Position            /   Color               /   Texture         //  
         //  x       y       z   /   r       g       b   /   x       y       //  
-            -0.5f,  -0.5f,  0.0f,   1.0f,   0.0f,   0.0f,   0.0f,   0.0f,   //  bottom-left     red
-            -0.5f,  0.5f,   0.0f,   0.0f,   1.0f,   0.0f,   0.0f,   1.0f,   //  top-left        green
-            0.5f,   0.5f,   0.0f,   0.0f,   0.0f,   1.0f,   1.0f,   1.0f,   //  top-right       blue
-            0.5f,   -0.5f,  0.0f,   1.0f,   1.0f,   1.0f,   1.0f,   0.0f,   //  bottom-right    white
+           -0.5f,   0.0f,   0.5f,   1.0f,   0.0f,   0.0f,   0.0f,   0.0f,   //  near-left   red
+           -0.5f,   0.0f,  -0.5f,   0.0f,   1.0f,   0.0f,   5.0f,   0.0f,   //  far-left    green
+            0.5f,   0.0f,   0.5f,   0.0f,   0.0f,   1.0f,   5.0f,   0.0f,   //  near-right  blue
+            0.5f,   0.0f,  -0.5f,   0.0f,   0.0f,   0.0f,   0.0f,   0.0f,   //  far-right   black
+            0.0f,   1.0f,   0.0f,   1.0f,   1.0f,   1.0f,   2.5f,   5.0f,   //  top         white
         };
     GLuint indices[] = {
-        0, 1, 2,
-        2, 3, 0
+        0, 1, 2,    // near-left floor
+        1, 2, 3,    // far-right floor
+        0, 1, 4,    // left  wall
+        0, 2, 4,    // near wall
+        1, 3, 4,    // far wall
+        2, 3, 4,    // right wall
         };
     GLuint indicesCount = sizeof(indices) / sizeof(indices[0]);
     GLenum attrType = GL_FLOAT;
@@ -38,14 +43,23 @@ int main() {
     EBO1.Unbind();
 
     // Uniforms
-    GLuint scaleUniform = glGetUniformLocation(shaderProgram.ID, "scale");
+    GLuint scaleUni = glGetUniformLocation(shaderProgram.ID, "scale");
+
+    GLuint modelUni = glGetUniformLocation(shaderProgram.ID, "model");
+    GLuint viewUni = glGetUniformLocation(shaderProgram.ID, "view");
+    GLuint projUni = glGetUniformLocation(shaderProgram.ID, "proj");
 
     // Drawing settings
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     // Texture
-    Texture texDonTrolleone("don_trolleone.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
-    texDonTrolleone.texUnit(shaderProgram, "tex0", 0);
+    Texture texture("don_trolleone.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+    texture.texUnit(shaderProgram, "tex0", 0);
+
+    float rotation = 0.0f;
+    double prevTime = glfwGetTime();
+
+    glEnable(GL_DEPTH_TEST);
 
     while (!window.ShouldClose()) {
         // logic
@@ -53,19 +67,32 @@ int main() {
 
         // rendering
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         shaderProgram.Use();
+
+        double crntTime = glfwGetTime();
+        if (crntTime - prevTime >= 1 / 60) {
+            rotation += 0.2f;
+            prevTime = crntTime;
+            }
 
         glm::mat4 model(1.0f);
         glm::mat4 view(1.0f);
         glm::mat4 proj(1.0f);
+
+        model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
         view = glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
         proj = glm::perspective(glm::radians(45.0f), (float)(window.width / window.height), 0.1f, 100.0f);
 
-        glUniform1f(scaleUniform, 1.0f);
+        glUniformMatrix4fv(modelUni, 1, GL_FALSE, glm::value_ptr(model));
+        glUniformMatrix4fv(viewUni, 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(projUni, 1, GL_FALSE, glm::value_ptr(proj));
+
+        glUniform1f(scaleUni, 2.0f);
+
         VAO1.Bind();
-        texDonTrolleone.Bind();
+        texture.Bind();
         glDrawElements(GL_TRIANGLES, indicesCount, GL_UNSIGNED_INT, 0);
 
         // submit
@@ -75,7 +102,7 @@ int main() {
     VAO1.Delete();
     VBO1.Delete();
     EBO1.Delete();
-    texDonTrolleone.Delete();
+    texture.Delete();
     shaderProgram.Delete();
 
     window.Delete();
