@@ -12,6 +12,7 @@ src/opengl_classes/Shader.cpp
 src/opengl_classes/VAO.cpp
 src/opengl_classes/BufferObject.cpp
 src/opengl_classes/Texture.cpp
+src/camera.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE src/include)

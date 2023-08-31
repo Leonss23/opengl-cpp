@@ -10,6 +10,7 @@
 
 #include "window.h"
 #include "utils.h"
+#include "camera.h"
 
 #include "Shader.h"
 #include "ShaderProgram.h"
